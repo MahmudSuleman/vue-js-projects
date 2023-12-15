@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 
 export const useTodoStore = defineStore('todos', {
     state: () => ({
+        query:'',
         todos: [
             {
                 id: 1,
@@ -40,5 +41,21 @@ export const useTodoStore = defineStore('todos', {
                 return item;
             })
         },
+        currentTodo( id){
+            return this.todos.filter(item=>{return item.id === id})[0];
+        },
+    },
+    getters:{
+        filteredTodo(state){
+            let q = state.query.trim().toLowerCase()
+            return state.todos.filter(item=>{
+                return item.title.includes(q) || item.body.includes(q)
+            })
+        },
+       
+        completedStyle(todo){
+
+        },
+
     }
 })
