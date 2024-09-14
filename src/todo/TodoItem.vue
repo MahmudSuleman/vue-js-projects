@@ -7,6 +7,7 @@
       <p class="text-md"
          :class="{'line-through':  todo.isComplete, 'text-gray-400': todo.isComplete, 'text-white': !todo.isComplete,}"
       >{{ todo.body }}</p>
+      <p class="text-white">{{ todo.createdAt }}</p>
     </div>
     <hr class="border-2 my-5">
     <div class="space-x-5">

@@ -20,7 +20,5 @@
   const todosStore = useTodoStore();
  
   const todo = todosStore.currentTodo(parseInt(route.params.id))
-  console.log(todo)
- 
  
   </script> 
