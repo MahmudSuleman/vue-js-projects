@@ -4,12 +4,15 @@
     <hr class="border-2 my-2">
     
     <div class="p-5">
-      <div class="mb-3">
+      
         <button @click="todosStore.toggleAddForm()" class="mb-2 border border-3 border-green-700 p-2 rounded-md hover:bg-green-500 hover:text-white">Show Add Form</button>
         <div v-if="todosStore.showAddForm" class="mb-2">
          <todo-form></todo-form>
         </div>
-      </div>
+    </div>
+
+    <hr class="border-2 my-2">
+    <div>
       <input type="text"
              :disabled="todosStore.todos <= 0"
              class="rounded-lg p-2 border border-gray-600 min-w-full"

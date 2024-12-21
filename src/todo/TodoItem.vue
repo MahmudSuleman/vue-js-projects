@@ -17,11 +17,17 @@
       <i class="fa-solid fa-eye" aria-hidden="true"></i> View </router-link>
  
       <button
-          @click="toggleTodo(todo.id)"
+          @click="todosStore.toggleComplete(todo.id)"
           class="text-green-300 font-bold border border-green-500 p-2 rounded-lg hover:text-white hover:bg-green-700 ">
         <i class="fa-solid " :class="{ 'fa-x' : todo.isComplete, 'fa-check': ! todo.isComplete}"
            aria-hidden="true"></i>
         {{ todo.isComplete ? 'Incomplete' : 'Complete' }}
+      </button>
+      <button
+          @click="todosStore.toggleEditForm(todo.id)"
+          class="text-blue-300 font-bold border border-blue-500 p-2 rounded-lg hover:text-white hover:bg-green-700 ">
+        <i class="fa-solid fa-edit"   aria-hidden="true"></i>
+        Edit
       </button>
       <button @click="deleteTodo(todo.id)"
               class="text-red-500 font-bold border border-red-500 p-2 rounded-lg hover:bg-red-700 hover:text-white">
@@ -36,6 +42,8 @@
 import {useTodoStore} from "@/stores/TodoStore";
 import TodoDetails from "./TodoDetails.vue";
 
+let {todo} = defineProps(['todo'])
+
 const todosStore = useTodoStore()
 
 function deleteTodo(id) {
@@ -44,11 +52,7 @@ function deleteTodo(id) {
   }
 
 }
+ 
 
-function toggleTodo(id) {
-  todosStore.toggleComplete(id)
-}
-
-let {todo} = defineProps(['todo'])
 
 </script>

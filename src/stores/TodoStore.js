@@ -3,7 +3,12 @@ import { defineStore } from "pinia";
 export const useTodoStore = defineStore('todos', {
     state: () => ({
         query: '',
-        showAddForm: true,
+        showAddForm: false,
+        selectedTodo:{
+            id:null, 
+            title:null,
+            body:null
+        },
         todos: [
             {
                 id: 1,
@@ -30,13 +35,23 @@ export const useTodoStore = defineStore('todos', {
     }),
     actions: {
         addTodo(title, body) {
-            this.todos.push({
-                id: Math.floor(Math.random() * 100),
-                title,
-                body,
-                isComplete: false,
-                createdAt: new Date()
-            })
+            if(this.selectedTodo.id != null){
+                this.todos = this.todos.map((item)=>{
+                    if(item.id == this.selectedTodo.id){
+                       item.title = title
+                       item.body = body
+                    }
+                    return item;
+                })
+            }else{                
+                this.todos.push({
+                    id: Math.floor(Math.random() * 100),
+                    title,
+                    body,
+                    isComplete: false,
+                    createdAt: new Date()
+                })
+            }
         },
         deleteTodo(id) {
             this.todos = this.todos.filter((item) => {
@@ -46,13 +61,21 @@ export const useTodoStore = defineStore('todos', {
         toggleComplete(id) {
             this.todos = this.todos.map((item) => {
                 if (item.id === id) {
-                    return { ...item, isComplete: !item.isComplete }
+                    item.isComplete = !item.isComplete 
                 }
                 return item;
             })
         },
         toggleAddForm() {
             this.showAddForm = !this.showAddForm
+        },
+
+        toggleEditForm(id) {
+            this.showAddForm = true
+            let todo = this.todos.filter(item => item.id===id)[0]
+            this.selectedTodo.id =todo.id
+            this.selectedTodo.title =todo.title
+            this.selectedTodo.body =todo.body   
         },
         currentTodo(id) {
             return this.todos.filter(item => { return item.id === id })[0];

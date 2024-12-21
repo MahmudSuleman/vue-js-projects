@@ -37,7 +37,7 @@
   </template>
   
   <script setup>
-  import { ref, reactive, computed } from 'vue';
+  import { ref, reactive, computed, onMounted } from 'vue';
   import { useTodoStore } from '../stores/TodoStore';
   import RequiredStar from './RequiredStar.vue';
   
@@ -84,4 +84,10 @@
       validateBody();
     }
   };
+
+  onMounted(()=>{
+   todo.title = todoStore.selectedTodo.title 
+   todo.body = todoStore.selectedTodo.body
+  })
+  
   </script>
